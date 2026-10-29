@@ -29,6 +29,7 @@ MODEL_URL = (
 )
 
 COLORS = {
+    "🩵 Sky Blue": (100, 190, 255),
     "💙 Blue": (60, 120, 255),
     "🩷 Pink": (255, 100, 180),
     "💜 Purple": (160, 80, 220),
@@ -53,22 +54,15 @@ COLORS = {
     "Ash Blonde": (175, 170, 155),
 
     # Cool colors
-    "Blue": (60, 120, 255),
-    "🩵 Sky Blue": (100, 190, 255),
     "Navy Blue": (35, 50, 110),
-    "Purple": (160, 80, 220),
     "Lavender": (190, 150, 230),
-    "Pink": (255, 100, 180),
     "Pastel Pink": (255, 175, 205),
 
     # Vivid colors
-    "Red": (230, 50, 60),
     "Burgundy": (120, 30, 55),
-    "Green": (60, 190, 100),
     "Mint": (125, 220, 185),
 
     # Neutral colors
-    "Silver": (180, 185, 200),
     "Ash Gray": (115, 120, 130),
    
 }
