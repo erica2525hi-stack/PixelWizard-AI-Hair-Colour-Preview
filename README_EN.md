@@ -86,6 +86,8 @@ This project taught me that using an AI model's output directly is not always en
 
 Pixel Wizard is an ongoing project that improves through experimentation and iteration.
 
-## Notes
+## Test Image and Usage
 
-Pixel Wizard is a visual preview tool, so its results may differ from actual hair-dye results. Before publishing a repository, make sure that personal photos and other private files are not included without permission.
+A photo of Choi San, a member of ATEEZ, was used during development to test the hair-color preview feature and evaluate hair segmentation.
+
+The image may be subject to copyright held by its original rights holder. The rights to the image are separate from the project code. Before publishing the image in a public repository or service, its source and applicable usage permissions should be checked.
