@@ -6,6 +6,8 @@ Python과 Streamlit을 사용하여 이미지 업로드부터 색상 조절, 결
 
 해당 프로젝트는 Google Colab에서 개발 및 실행된 후, GitHubdp 업로드되었습니다.
 
+🚀 **Live Demo:** [Try Pixel Wizard](https://pixelwizard-ai-hair-colour-preview-xvwe9pxlsrnbasqpawmasa.streamlit.app/)
+
 ---
 
 ## Overview
