@@ -4,6 +4,8 @@
 MediaPipe Hair Segmentation을 활용해 머리카락 영역을 분할하고, 선택한 RGB 색상을 해당 영역에 적용합니다.  
 Python과 Streamlit을 사용하여 이미지 업로드부터 색상 조절, 결과 비교 및 다운로드까지 가능한 애플리케이션을 구현했습니다.
 
+해당 프로젝트는 Google Colab에서 개발 및 실행된 후, GitHubdp 업로드되었습니다.
+
 ---
 
 ## Overview
