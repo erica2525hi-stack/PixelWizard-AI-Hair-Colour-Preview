@@ -1,93 +1,111 @@
-# Pixel Wizard - AI 헤어 컬러 미리보기
+# 🪄 Pixel Wizard – AI Hair Colour Preview
 
-Pixel Wizard는 사진에서 머리카락 영역을 찾아 원하는 헤어 컬러를 미리 적용해 볼 수 있는 AI 기반 프로젝트입니다. 실제로 염색하기 전에 색상 변화를 확인하고, 자신에게 어울리는 컬러를 탐색하는 데 도움을 주는 것을 목표로 합니다.
+사진 속 머리카락 영역을 AI로 인식하고 원하는 색상으로 바꿔 볼 수 있는 가상 염색 미리보기 프로젝트입니다.  
+MediaPipe Hair Segmentation을 활용해 머리카락 영역을 분할하고, 선택한 RGB 색상을 해당 영역에 적용합니다.  
+Python과 Streamlit을 사용하여 이미지 업로드부터 색상 조절, 결과 비교 및 다운로드까지 가능한 애플리케이션을 구현했습니다.
 
-## 프로젝트 소개
+---
 
-헤어 컬러를 바꾸고 싶어도 실제로 염색한 모습을 미리 확인하기는 어렵습니다. Pixel Wizard는 이 문제에서 출발했습니다. 사진 속 머리카락 영역을 분리하고 해당 영역에 새로운 색상을 적용해, 원본 사진과 비교할 수 있도록 만들었습니다.
+## Overview
 
-프로젝트를 개발하면서 단순히 머리카락에 색을 입히는 것뿐 아니라, 눈썹이나 눈동자처럼 머리카락이 아닌 부분에 색이 적용되지 않도록 마스크를 조정하는 과정도 중요하다는 점을 확인했습니다.
+Pixel Wizard is an AI-based hair colour preview application built with Python. It uses MediaPipe Hair Segmentation to detect hair regions in an uploaded photo and applies a selected colour to those regions.
 
-## 주요 기능
+Users can choose from different hair colours, adjust the colour intensity, compare the original and edited images, and download the result.
 
-- 사진을 이용한 헤어 컬러 미리보기
-- AI 기반 머리카락 영역 분리
-- 선택한 색상을 머리카락 영역에 적용
-- 원본 이미지와 색상 적용 결과 비교
-- 머리카락 마스크를 조정해 불필요한 색상 적용을 줄이는 기능
+## Project Information
 
-## 개발 과정과 개선점
+- **Project Period:** [2026.09 – 2026.10]
+- **Development Environment:** Google Colab
+- **Application Framework:** Streamlit
 
-개발 과정에서 확인한 문제들을 바탕으로 다음과 같은 부분을 개선했습니다.
+## Features
 
-### 1. 머리카락 영역 분리
+- Upload photos in JPG, JPEG, or PNG format
+- Detect hair regions using MediaPipe Hair Segmentation
+- Preview different hair colours
+- Adjust colour intensity with a slider
+- Compare original and edited images side by side
+- Download the edited image as a PNG file
 
-MediaPipe의 헤어 세그멘테이션 결과를 이용해 머리카락 영역을 추출했습니다. 모델이 제공하는 확률값을 기준으로 마스크를 만들고, 임계값을 조정하면서 머리카락 영역을 구분하도록 했습니다.
+## How It Works
 
-### 2. 마스크 품질 개선
+### 1. Hair Segmentation
 
-처음에는 머리카락 영역을 추출하는 것만으로 충분하지 않았습니다. 머리카락 주변이나 얼굴의 다른 부분까지 색이 적용되는 문제가 있어 마스크를 보정하고 형태학적 연산을 활용해 불필요한 영역을 줄였습니다.
+The application uses MediaPipe's Hair Segmenter to identify hair regions in an image.
 
-### 3. 눈썹과 눈동자 보호
+The model generates confidence masks, and a threshold of `0.75` is applied to select pixels classified as hair.
 
-테스트 과정에서 눈썹과 눈동자에 색이 적용되는 현상을 확인했습니다. 이를 줄이기 위해 마스크의 임계값과 보정 방식을 조정하고, 특정 영역을 제외하는 방법도 실험했습니다. 이 과정에서 단순히 색상을 적용하는 것보다 머리카락과 다른 영역을 정확하게 구분하는 것이 중요하다는 점을 배웠습니다.
+### 2. Hair Colour Application
 
-다만 사진의 각도, 조명, 헤어스타일에 따라 결과가 달라질 수 있으며, 모든 비머리카락 영역을 완벽하게 보호하는 단계까지 해결된 것은 아닙니다.
+The selected RGB colour is blended with the original image pixels within the detected hair mask.
 
-### 4. 반복적인 테스트와 디버깅
+The blending strength is controlled by an adjustable slider, allowing users to change the intensity of the selected colour.
 
-개발 중 변수 정의 누락, 이미지 경로 문제, 마스크 변수 간 연결 오류 등을 확인하고 수정했습니다. 기능을 한 번에 완성하기보다는 실행 결과를 확인하고 문제를 찾아 하나씩 개선하는 방식으로 개발했습니다.
+### 3. Result Preview
 
-## 사용 기술
+The application displays the original and edited images side by side. Users can also download the edited image in PNG format.
+
+## Development and Experiments
+
+During development, I tested different segmentation approaches and explored ways to improve the quality of the hair mask.
+
+- Explored segmentation approaches, including a SegFormer-based approach and MediaPipe Hair Segmentation.
+- Experimented with confidence thresholds to control which pixels were included in the hair mask.
+- Tested morphological operations, including opening and closing, to refine segmentation masks.
+- Investigated unwanted segmentation around facial features, including eyebrows and eyes.
+- Debugged image paths, variable definitions, and mask handling during implementation.
+
+These experiments helped me understand that segmentation model outputs may require additional processing before they can be used in an image-editing application.
+
+The current Streamlit application uses MediaPipe Hair Segmentation with a fixed confidence threshold of `0.75`. Additional mask-refinement experiments are documented in the Colab notebook and are not all integrated into the application.
+
+## Tech Stack
 
 - Python
-- Streamlit
 - MediaPipe
 - NumPy
 - Pillow
-- SciPy
+- Streamlit
 - Google Colab
 
-## 실행 방법
+## Development Workflow
 
-1. 저장소를 내려받습니다.
+The project was developed and tested in Google Colab. After implementation and experimentation, the project files were organised and uploaded to GitHub.
 
-   ```bash
-   git clone <repository-url>
-   cd <repository-folder>
-   ```
+## How to Run
 
-2. 필요한 라이브러리를 설치합니다.
+### 1. Clone the repository
 
-   ```bash
-   pip install streamlit mediapipe numpy pillow scipy
-   ```
+```bash
+git clone https://github.com/erica2525hi-stack/PixelWizard-AI-Hair-Colour-Preview.git
+cd PixelWizard-AI-Hair-Colour-Preview
+```
 
-3. Streamlit 앱 파일을 실행합니다. 아래의 `app.py`는 실제 앱 파일명에 맞게 변경해야 합니다.
+### 2. Install dependencies
 
-   ```bash
-   streamlit run app.py
-   ```
+```bash
+pip install -r requirements.txt
+```
 
-라이브러리 버전에 따라 추가 설정이 필요할 수 있습니다. 실제 프로젝트에서 사용하는 파일과 라이브러리 버전을 확인한 뒤 실행하는 것을 권장합니다.
+### 3. Run the application
 
-## 앞으로 개선할 점
+```bash
+streamlit run app.py
+```
 
-- 머리카락과 얼굴 영역을 더 정확하게 구분하기
-- 눈썹, 눈동자, 피부에 색이 적용되는 문제 줄이기
-- 다양한 헤어스타일과 조명 환경에서 테스트하기
-- 색상 선택과 미리보기 과정을 더 편리하게 만들기
-- 원본과 결과를 쉽게 비교할 수 있는 인터페이스 개선
-- 색상 적용 결과를 더 자연스럽게 보정하기
+The MediaPipe hair segmentation model is downloaded automatically when it is first needed by the application.
 
-## 프로젝트에서 배운 점
+## Limitations and Future Improvements
 
-이 프로젝트를 통해 AI 모델의 결과를 그대로 사용하는 것만으로는 충분하지 않다는 점을 배웠습니다. 실제 사용자가 보기 좋은 결과를 얻으려면 모델의 예측 결과를 확인하고, 마스크를 보정하며, 여러 이미지에서 반복적으로 테스트하는 과정이 필요했습니다.
+- Segmentation quality may vary depending on lighting, hairstyle, and camera angle.
+- The threshold-based mask may include nearby facial features.
+- The current RGB blending method does not fully preserve the original hair's lighting and texture.
+- More accurate hair boundaries and more natural-looking colour application could improve the results.
 
-Pixel Wizard는 이러한 시행착오를 통해 개선해 나가는 프로젝트입니다.
+## What I Learned
 
-## 테스트 이미지 및 사용 범위
+Through this project, I gained practical experience in applying a pre-trained image segmentation model to an interactive application.
 
-프로젝트 개발 및 테스트 과정에서 ATEEZ 멤버 최산의 사진을 테스트 이미지로 사용했습니다. 해당 이미지는 헤어 컬러 미리보기 기능과 머리카락 영역 분리 결과를 확인하기 위한 목적으로 사용했습니다.
+I learned how to work with confidence masks, adjust segmentation thresholds, apply image transformations to selected regions, and debug issues through iterative testing.
 
-사진의 저작권 및 사용 권한은 원저작권자에게 있으며, 프로젝트 코드와 이미지의 권리는 별개입니다. 이미지를 공개 저장소나 서비스에 게시할 경우에는 원본 이미지의 출처와 이용 조건을 확인해야 합니다.
+The project also showed me the importance of inspecting model outputs and handling their limitations when integrating machine learning models into an application.
