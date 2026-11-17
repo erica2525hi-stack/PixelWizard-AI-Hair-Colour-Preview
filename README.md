@@ -122,7 +122,7 @@ The initial threshold (0.75) was chosen by visually comparing a few photos. To c
 **Findings**
 - Raising the threshold increases Precision (fewer non-hair pixels) but lowers Recall (more hair pixels missed), a clear trade-off.
 - F1 was highest at 0.50. The original 0.75 favoured Precision.
-- The app now exposes a threshold slider (0.5–0.9) with a default of [최종 선택값].
+- The app exposes a threshold slider (0.5–0.9). I kept the default at 0.75: F1 was only 0.013 lower than at 0.50, and for a hair-colour preview, colour bleeding onto skin is more noticeable than slightly missed hair strands, so I prioritised Precision. Users can lower the threshold to recover thin hair.
 
 **Limitations**
 - Only 50 images were evaluated, and CelebAMask-HQ is mostly frontal faces, so results may not generalise to other poses, lighting or hairstyles.
