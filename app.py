@@ -100,6 +100,15 @@ strength = st.slider(
     step=0.1
 )
 
+threshold = st.slider(
+    "Hair detection threshold",
+    min_value=0.5,
+    max_value=0.9,
+    value=0.5,
+    step=0.05,
+    help="Higher: fewer skin areas selected, but thin hair may be missed. Lower: the opposite."
+)
+
 if uploaded_file is not None:
     try:
         img = Image.open(uploaded_file).convert("RGB")
@@ -134,7 +143,7 @@ if uploaded_file is not None:
                 )
 
                 # Select pixels likely to be hair
-                hair_mask = hair_probability >= 0.75
+                hair_mask = hair_probability >= threshold
 
                 original = np.array(img).astype(np.float32)
                 output = original.copy()
