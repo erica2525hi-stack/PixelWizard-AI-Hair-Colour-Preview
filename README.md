@@ -99,6 +99,35 @@ streamlit run app.py
 
 The MediaPipe hair segmentation model is downloaded automatically when it is first needed by the application.
 
+## Threshold Evaluation
+
+The initial threshold (0.75) was chosen by visually comparing a few photos. To check it quantitatively, I evaluated the MediaPipe hair confidence mask against ground-truth masks.
+
+**Setup**
+- Images: CelebAMask-HQ, 50 images randomly sampled from 30,000 (seed = 42)
+- Ground truth: CelebAHairMask-HQ
+- Metrics: Precision, Recall, F1, IoU (pixels pooled over all 50 images)
+
+**Results**
+
+| Threshold | Precision | Recall | F1 | IoU |
+|---|---|---|---|---|
+| 0.50 | 0.938 | 0.908 | 0.923 | 0.857 |
+| 0.60 | 0.950 | 0.893 | 0.921 | 0.853 |
+| 0.70 | 0.960 | 0.874 | 0.915 | 0.843 |
+| 0.75 | 0.965 | 0.861 | 0.910 | 0.835 |
+| 0.80 | 0.969 | 0.846 | 0.903 | 0.824 |
+| 0.90 | 0.979 | 0.801 | 0.881 | 0.787 |
+
+**Findings**
+- Raising the threshold increases Precision (fewer non-hair pixels) but lowers Recall (more hair pixels missed), a clear trade-off.
+- F1 was highest at 0.50. The original 0.75 favoured Precision.
+- The app now exposes a threshold slider (0.5–0.9) with a default of [최종 선택값].
+
+**Limitations**
+- Only 50 images were evaluated, and CelebAMask-HQ is mostly frontal faces, so results may not generalise to other poses, lighting or hairstyles.
+- Threshold tuning cannot fix errors made by the model itself.
+
 ## Limitations and Future Improvements
 
 - Segmentation quality may vary depending on lighting, hairstyle, and camera angle.
